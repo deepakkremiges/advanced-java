@@ -22,6 +22,7 @@ public class GreetMsg {
         }
     }
 
+    
     @PostMapping("/hello")
     public ApiResponse greetMsgName(@RequestParam String name) {
         try {
