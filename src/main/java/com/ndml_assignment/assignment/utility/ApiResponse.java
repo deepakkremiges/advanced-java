@@ -1,101 +1,78 @@
 package com.ndml_assignment.assignment.utility;
 
 import java.beans.JavaBean;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
+import com.ndml_assignment.assignment.entity.Employee;
+
+import lombok.Data;
 
 @JavaBean
-//@Component
+@Data
 public class ApiResponse {
-        private String status;
-        private String status_code;
-        private String status_msg;
-        private String _reqid;
-        private String _server_ts;
-    
-        //constructor
-        public ApiResponse(String status, String status_code, String status_msg) {
-            this.status = status;
-            this.status_code = status_code;
-            this.status_msg = status_msg;
-            this._reqid = generateRandomRequestId();
-            this._server_ts = getCurrentTimestamp();
-        }
-         
-        
-        // Setter methods
-        public void setStatus(String status) {
-            this.status = status;
-        }
 
+    private String status;
+    private String statusCode;
+    private String statusMsg;
+    private Map<String, Object> data;
+    private String reqId;
+    private Instant serverTs;
 
-        public void setStatus_code(String status_code) {
-            this.status_code = status_code;
-        }
+    // constructor with parameter
+    // public ApiResponse(String status, String statusCode, String statusMsg, Object
+    // object, String reqId) {
+    // this.status = status;
+    // this.statusCode = statusCode;
+    // this.statusMsg = statusMsg;
+    // this.data = object;
+    // this.reqId = reqId;
+    // this.serverTs = Instant.now();
+    // }
 
+    public ApiResponse(String status, String statusCode, String statusMsg, Map<String, Object> object, String reqId) {
+        this.status = status;
+        this.statusCode = statusCode;
+        this.statusMsg = statusMsg;
+        this.data = (Map<String, Object>) object;
+        this.reqId = reqId;
+        this.serverTs = Instant.now();
+    }
 
-        public void setStatus_msg(String status_msg) {
-            this.status_msg = status_msg;
-        }
+    public ApiResponse() {
+        // TODO Auto-generated constructor stub
+    }
 
+    public ApiResponse(String string, String string2, String string3) {
+        // TODO Auto-generated constructor stub
+    }
 
-        public void set_reqid(String _reqid) {
-            this._reqid = _reqid;
-        }
+    public ApiResponse(String status2, String statusCode2, String statusMsg2, Employee employee, String clientReqId) {
+        // TODO Auto-generated constructor stub
+    }
 
+    public ApiResponse(String status2, String statusCode2, String statusMsg2, Object object, String clientReqId) {
+        // TODO Auto-generated constructor stub
+    }
 
-        public void set_server_ts(String _server_ts) {
-            this._server_ts = _server_ts;
-        }
-  
-        //Getter Methods
-        public String getStatus() {
-            return status;
-        }
+    // to get the data
+    public void setData(String string) {
+        // TODO Auto-generated method stub
+        return;
+    }
 
+    public void setData(Map<String, Object> responseData) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setData'");
+    }
 
-        public String getStatus_code() {
-            return status_code;
-        }
-
-
-        public String getStatus_msg() {
-            return status_msg;
-        }
-
-
-        public String get_reqid() {
-            return _reqid;
-        }
-
-
-        public String get_server_ts() {
-            return _server_ts;
-        }
- 
-        //Generating Random_RequestId
-        private String generateRandomRequestId() {
-            final String characters = "abcdefghijklmnopqrstuvwxyz1234567890";
-            Random random = new Random();
-            StringBuilder sb = new StringBuilder();
-
-            for(int i = 0; i < 9;i++){
-                int randomIndex = random.nextInt(characters.length());
-                char randomChar = characters.charAt(randomIndex);
-                sb.append(randomChar);
-            }
-            return sb.toString();
-        }
-    
-        //Generating Current_TimeStamp
-        private String getCurrentTimestamp() {
-            LocalDateTime currentTime = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-            return currentTime.format(formatter);
-        }
-
-
-    
+    // to get random number
+    public static String generateRandomNumberString(int length) {
+        Random random = new Random();
+        return random.ints(length, 0, 10)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining());
+    }
 }
